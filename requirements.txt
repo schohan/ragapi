@@ -1,0 +1,12 @@
+fastapi>=0.111.0
+pydantic>=2.7.0,<3.0.0
+pydantic-settings
+apscheduler>=3.10.4
+pymongo==4.8.0
+langchain-core
+langchain-community
+unstructured
+pdfminer.six
+pillow
+pillow-heif
+pypdf
