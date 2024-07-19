@@ -3,7 +3,10 @@ from fastapi import APIRouter, Query
 from app.config import settings
 from app.helpers.dataloaders.pdf_loader import PdfLoader
 from app.services.ingestor_service import IngestorService
+from app.services.tokenizer_service import TokenizerService
 from app.services.llm_service import LlmService
+from app.services.embedding_service import EmbeddingService
+
 import json
 from fastapi.encoders import jsonable_encoder
 from typing import Annotated
@@ -13,6 +16,23 @@ router = APIRouter(
     tags=["ingestor"],
     responses={404: {"description": "Not found!!"}}
 )
+
+
+@router.get("/tokenize")
+async def ingest(text: str):    
+    print("creating embeddings...")
+    tokens = TokenizerService.tokenize(text)
+    print("tokens: " + str(tokens)) 
+    return {"message": "Tokens created", "tokens": tokens}
+
+
+@router.get("/embeddings")
+async def ingest(text: str):    
+    print("creating embeddings...")
+    embs = EmbeddingService.doc_embedding(text)
+    #print("embedding..." + str(embs[:2])) 
+    return {"message": "Last embedding (as sample)", "embeddings": embs[:1]}
+    
 
 
 @router.get("/ingest")
@@ -42,9 +62,5 @@ async def ingest():
     return {"data": jsonable_encoder(content)}
 
 
-@router.get("/infertest")
-async def infertest(q: Annotated[str | None, Query(max_length=100)] = None):
-    if q:
-        return LlmService.test(q)
-    else:
-        return "No query specified" 
+
+

@@ -5,11 +5,11 @@ from apscheduler.triggers.interval import IntervalTrigger
 import logging
 import time
 
-from .routes import sources
-from .routes import ingestor
-from .routes import inferer
+from app.routes import sources
+from app.routes import ingestor
+from app.routes import inferer
 
-from .jobs import sync
+from app.jobs import sync
 import datetime
 
 app = FastAPI(title="RagAPI",

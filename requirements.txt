@@ -11,3 +11,4 @@ pillow
 pillow-heif
 pypdf
 markdown
+sentence_transformers

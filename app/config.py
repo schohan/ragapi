@@ -11,9 +11,25 @@ class Settings(BaseSettings):
     app_name: str = "RAG API"
     mongodb_url: str = "mongodb://localhost:27017"
     data_sources: dict = {"dir": ["./data"]}
+    # llama3: dict = {
+    #     "url": "http://localhost:11434",
+    #     "chunk_size": 1000, 
+    #     "context_size": 8000, 
+    # }
     
-    models: dict = {
-        "llama3": {"url": "http://localhost:11434","chunk_size": 1000, "context_size": 8000 }
+class ModelSettings(BaseSettings): 
+    splitter : dict = {
+        "chunk_size": 10, 
+        "chunk_overlap": 3
+    }
+    embedding_models: dict = {
+        "bge": "BAAI/bge-small-en"
+    }       
+    llama3: dict = {
+        "url": "http://localhost:11434",                 
+        "context_size": 8000,
     }
 
+    
 settings = Settings()
+model_settings = ModelSettings()

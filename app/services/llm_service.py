@@ -1,11 +1,12 @@
 from langchain_community.llms import Ollama
-from app.config import settings
+from app.config import model_settings
+
 class LlmService:
     llm = Ollama(
-            base_url=settings.models.get("llama3").get("url"),
+            base_url=model_settings.llama3.get("url"),
             model="llama3"
         )
-    url = settings.models.get("llama3").get("url")       
+    url = model_settings.llama3.get("url")       
 
     @classmethod
     def test(cls, question):        
@@ -16,7 +17,7 @@ class LlmService:
 
     @classmethod
     def call(cls, prompt, question):
-        print(f"Calliong with prompt: {prompt} Question: {question}")
+        print(f"Calling with prompt: {prompt} Question: {question}")
         resp = cls.llm.invoke(question)
         print(resp)
         return resp
