@@ -7,6 +7,7 @@ from app.services.llm_service import LlmService
 import json
 from fastapi.encoders import jsonable_encoder
 from typing import Annotated
+from markdown import markdown
 
 router = APIRouter(
     prefix="/inferer",
@@ -26,6 +27,8 @@ async def infer(q: Annotated[str | None, Query(max_length=100)] = None):
 @router.get("/withprompt")
 async def infer(prompt:str|None = "default", q: Annotated[str | None, Query(max_length=100)] = None):    
     if q:
-        return LlmService.call(prompt, q)
+        resp = LlmService.call(prompt, q)
+        html_content = markdown(resp)
+        return Response(content=html_content, media_type="text/html")
     else:
         return "No query specified" 

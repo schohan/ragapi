@@ -10,3 +10,4 @@ pdfminer.six
 pillow
 pillow-heif
 pypdf
+markdown

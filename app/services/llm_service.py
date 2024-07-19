@@ -16,7 +16,7 @@ class LlmService:
 
     @classmethod
     def call(cls, prompt, question):
-        print("Calliong with prompt: {} Url: {} " % prompt, url)
+        print(f"Calliong with prompt: {prompt} Question: {question}")
         resp = cls.llm.invoke(question)
         print(resp)
         return resp

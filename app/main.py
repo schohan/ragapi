@@ -7,6 +7,8 @@ import time
 
 from .routes import sources
 from .routes import ingestor
+from .routes import inferer
+
 from .jobs import sync
 import datetime
 
