@@ -1,6 +1,6 @@
-Use virtual env to build and run
+Use virtual ragapi to build and run
 
-`python -m venv env`
+`python -m venv ragapi`
 
 `pip install` \n 
 
