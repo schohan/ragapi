@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Response 
+from fastapi import FastAPI, HTTPException, Response 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 import logging
 import time
 
+from app.db.MongoDBRepository import MongoDBRepository
 from app.routes import sources
 from app.routes import ingestor
 from app.routes import inferer
@@ -54,7 +55,7 @@ async def stop_jobs(response: Response):
     if job:
         job.pause()
     else:
-        raise HTTPException("Job could not be paused")    
+        raise HTTPException(500, "Job could not be paused")    
 
     return {"data": "Jobs paused " + job.id }    
 
@@ -64,20 +65,21 @@ async def start_jobs(response: Response):
     if job:
         job.resume()
     else:
-        raise HTTPException("Job could not be resumed")    
+        raise HTTPException(500, "Job could not be resumed")    
 
     return {"data": "Jobs resumed" }    
 
 
-@app.on_event('startup')
+
 async def on_startup():
     print("Starting FastAPI")
 
 
-@app.on_event('shutdown')
 async def on_shutdown():
     print("Shutting down")
     
+# initialize the database
+MongoDBRepository.initialize()
 
 # add other routes
 app.include_router(sources.router) 

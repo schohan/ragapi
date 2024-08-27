@@ -5,10 +5,15 @@ apscheduler>=3.10.4
 pymongo==4.8.0
 langchain-core
 langchain-community
-unstructured
+#unstructured
 pdfminer.six
 pillow
 pillow-heif
 pypdf
 markdown
 sentence_transformers
+google-api-python-client 
+google-auth-httplib2 
+google-auth-oauthlib
+unstructured[doc,docx,ppt,pptx,csv,md,pdf,xlsx]
+docx2txt

@@ -24,7 +24,7 @@ async def infer(q: Annotated[str | None, Query(max_length=100)] = None):
 
 
 @router.get("/withprompt")
-async def infer(prompt:str|None = "default", q: Annotated[str | None, Query(max_length=100)] = None):    
+async def infer_with_prompt(prompt:str|None = "default", q: Annotated[str | None, Query(max_length=100)] = None):    
     if q:
         resp = LlmService.call(prompt, q)
         html_content = markdown(resp)

@@ -7,6 +7,7 @@ class EmbeddingService:
     @staticmethod
     def embeddings(text: str):
         print("Embeddings ...: %s" % text)
+        return []
         
         
         

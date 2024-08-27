@@ -1,8 +1,10 @@
 Use virtual ragapi to build and run
 
-`python -m venv ragapi`
-
-`pip install` \n 
+```bash
+python -m venv ragapi
+source ragapi/bin/activate
+pip install 
+```
 
 To generate and upgrade packages
 
@@ -10,7 +12,6 @@ To generate and upgrade packages
 pip freeze > requirements.txt
 pip install --upgrade -r requirements.txt
 ```
-
 
 
 Run:

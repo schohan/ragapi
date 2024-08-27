@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-
+from typing import List
 
 class Settings(BaseSettings):
     """This class provides config/settings for the application.
@@ -10,7 +10,17 @@ class Settings(BaseSettings):
     """
     app_name: str = "RAG API"
     mongodb_url: str = "mongodb://localhost:27017"
-    data_sources: dict = {"dir": ["./data"]}
+    data_sources: dict[str, list] = {
+        "inp_dir": ["./data/inp/"],
+        "out_dir": ["./data/out/"],
+        "google_files": [ 
+        "https://docs.google.com/document/d/1AY4YqV6FHxpFvuZ_1HldYxWf1w0FfB1jGi9kBCLcaBk"        
+        ]
+    }
+    
+    # "https://docs.google.com/document/d/1d-H0V3zPA_E8ZJHfIXu3jlgHJvvmiBh3mZmzNPOXX_s",
+    # "https://docs.google.com/document/d/12hWyKTglbVs7ajJ691Ed5BJG66i0Q_ra/edit?usp=sharing&ouid=116399332300092905727&rtpof=true&sd=true"
+    
     # llama3: dict = {
     #     "url": "http://localhost:11434",
     #     "chunk_size": 1000, 
