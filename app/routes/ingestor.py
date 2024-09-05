@@ -61,13 +61,11 @@ async def ingest():
 
 
 
-
 @router.get("/tokenize")
-async def tokenize(text: str):    
-    print("creating embeddings...")
-    tokens = TokenizerService.tokenize(text)
-    print("tokens: " + str(tokens)) 
-    return {"message": "Tokens created", "tokens": tokens}
+async def tokenize():    
+    print("creating embeddings...")    
+    page_count = TokenizerService.tokenize()
+    return {"message": "Tokens created", "pages processed": page_count}
 
 
 @router.get("/embeddings")

@@ -17,3 +17,4 @@ google-auth-httplib2
 google-auth-oauthlib
 unstructured[doc,docx,ppt,pptx,csv,md,pdf,xlsx]
 docx2txt
+boto3

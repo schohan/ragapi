@@ -53,7 +53,7 @@ class IngestorService:
         return pages
 
     def save_to_db(self, pages: List[Document]):
-        logger.info("Saving to db: %s" % pages)
+        logger.info("Saving pages to db: %s" % len(pages))
         # write pages to mongodb collection called pages
         for page in pages:
             toSave = page.dict()

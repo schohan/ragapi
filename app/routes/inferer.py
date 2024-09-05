@@ -3,6 +3,7 @@ from fastapi import APIRouter, Query, Response
 from app.helpers.dataloaders.pdf_loader import PdfLoader
 from app.services.ingestor_service import IngestorService
 from app.services.llm_service import LlmService
+from app.services.bedrock_service import BedrockService
 import json
 from fastapi.encoders import jsonable_encoder
 from typing import Annotated
@@ -21,6 +22,11 @@ async def infer(q: Annotated[str | None, Query(max_length=100)] = None):
         return LlmService.test(q)
     else:
         return "No query specified" 
+
+
+@router.get("/list-models")
+async def list_models(q: Annotated[str | None, Query(max_length=100)] = None):
+    return BedrockService.list_models()
 
 
 @router.get("/withprompt")
