@@ -18,3 +18,5 @@ google-auth-oauthlib
 unstructured[doc,docx,ppt,pptx,csv,md,pdf,xlsx]
 docx2txt
 boto3
+langchain_aws
+

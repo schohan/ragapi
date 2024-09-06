@@ -71,7 +71,7 @@ async def tokenize():
 @router.get("/embeddings")
 async def embeddings(text: str):    
     print("creating embeddings...")
-    embs = EmbeddingService.embeddings(text)
+    embs = EmbeddingService.embed_documents(text)
     #print("embedding..." + str(embs[:2])) 
     return {"message": "Last embedding (as sample)", "embeddings": embs[:1]}
     

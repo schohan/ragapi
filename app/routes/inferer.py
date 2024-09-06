@@ -24,8 +24,8 @@ async def infer(q: Annotated[str | None, Query(max_length=100)] = None):
         return "No query specified" 
 
 
-@router.get("/list-models")
-async def list_models(q: Annotated[str | None, Query(max_length=100)] = None):
+@router.get("/list-bedrock-models")
+async def list_bedrock_models(q: Annotated[str | None, Query(max_length=100)] = None):
     return BedrockService.list_models()
 
 
