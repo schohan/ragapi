@@ -12,6 +12,13 @@ source ragapi/bin/activate
 pip install 
 ```
 
+To freeze and upgrade packages
+
+```javascript
+pip freeze > requirements.txt
+pip install --upgrade -r requirements.txt
+```
+
 ## Requirements 
 - Install Ollama ( as local LLM ) 
 - Pull a small model for testing (less accurate but good for CPU based machines). Configure it in config.py file.
@@ -27,13 +34,7 @@ ollama run llama3.1:8b
 ollama run llama3.1
 ```
 
-
-To generate and upgrade packages
-
-```javascript
-pip freeze > requirements.txt
-pip install --upgrade -r requirements.txt
-```
+Ensure it is working by pasting http://localhost:11434/ in a browser window. You should see a message "Ollama is running" as response.
 
 
 ## Run service locally:
@@ -41,6 +42,14 @@ pip install --upgrade -r requirements.txt
 ```
 ./run.sh
 ```
+
+Ensure it is working by pasting http://localhost:8000/ in your browser and you should see a greeting json like this:
+```
+{
+    "message": "Hello World"
+}
+```
+
 
 ### Invoke using following URLs
 

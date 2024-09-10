@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__).setLevel(logging.DEBUG)
 # add main routes
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Hello from Rag API"}
 
 
 @app.get("/ping")
