@@ -50,9 +50,7 @@ Documents can be read from S3 or other cloud buckets too with additional code.
 API calls to test (there are no background jobs configured so trigger for ingestion is also an API endpoint)
 
 - Ingest documents
-```
 http://localhost:8000/ingestor/ingest
-```
 
 - Tokenize
 http://localhost:8000/ingestor/tokenize
