@@ -73,6 +73,7 @@ async def embeddings(text: str):
     print("creating embeddings...")
     embs = EmbeddingService.embed_documents(text)
     #print("embedding..." + str(embs[:2])) 
+    
     return {"message": "Last embedding (as sample)", "embeddings": embs[:1]}
     
 

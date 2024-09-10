@@ -10,6 +10,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from typing import Any, Dict, List
 
 import logging
+
+from app.services.vectordb_service import VectorDbService
 logger = logging.getLogger(__name__)
 
 class TokenizerService:    
@@ -29,28 +31,12 @@ class TokenizerService:
         skip =  0
 
         while True: 
-            res = TokenizerService.get_unprocessed(skip, TokenizerService.max_page_size)
-            fetch_size = len(res)
+            unprocessed_documents = TokenizerService.get_unprocessed(skip, TokenizerService.max_page_size)
+            fetch_size = len(unprocessed_documents)
             skip += fetch_size            
             page_count += fetch_size
             #logger.info("\n===>>>>> res ...: %s" % res)    
-            for doc in res:
-                print("\n\n -->>> Processing doc: %s" % doc)
-                # process the document
-                
-                
-                metadata = doc.get("metadata", {})
-                metadata["id"] = doc.get("_id")
-                metadata["processed"] = True
-                                            
-                # tokenize the document
-                docs1 = TokenizerService.text_splitter.create_documents([doc.get("page_content", [])])    
-                chunks = [doc2.page_content for doc2 in docs1]
-                print("\n\n -->>> Processing chunks: %s" % chunks)
-
-                # embs = EmbeddingService.embed_documents([chunk.page_content for chunk in chunks])
-                
-                #logger.info("\n Embeds: %s" % embs)
+            TokenizerService.process_documents(unprocessed_documents)
                     
             # exit if no more pages to process
             if fetch_size == 0:
@@ -58,6 +44,28 @@ class TokenizerService:
 
         logger.info("Page Count: %s" % page_count)
         return page_count
+
+
+    @staticmethod
+    def process_documents(unprocessed_documents):
+        """Process the documents by tokenizing text, creating embeddings and storing them in a vectordb"""
+        
+        for doc in unprocessed_documents:
+            print("\n\n -->>> Processing doc: %s" % doc)
+                # process the document
+                
+            metadata = doc.get("metadata", {})
+            metadata["id"] = doc.get("_id")
+            metadata["processed"] = True
+                                            
+                # tokenize the document
+            text_list = TokenizerService.text_splitter.create_documents([doc.get("page_content", [])])    
+            chunks = [text.page_content for text in text_list]
+            #print("\n\n -->>> Processing chunks: %s" % chunks)
+
+            embs = EmbeddingService.embed_documents(chunks)
+            #logger.info("\n Embeds: %s" % len(embs))            
+            VectorDbService.insert(chunks, embs)
         
 
     @staticmethod   
@@ -72,4 +80,4 @@ class TokenizerService:
             pass                        
         return docs
         
-                
+    
