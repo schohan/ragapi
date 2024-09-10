@@ -2,6 +2,7 @@ from typing import List
 import boto3
 from langchain_aws import BedrockEmbeddings 
 from langchain_huggingface import HuggingFaceEmbeddings
+from app.config import model_settings
 
 class EmbeddingService:
     #llm_runtime = boto3.client(service_name="bedrock-runtime")
@@ -10,7 +11,7 @@ class EmbeddingService:
     #                                model_id="amazon.titan-text-lite-v1",
     #                                credentials_profile_name="default")
 
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2",
+    embeddings = HuggingFaceEmbeddings(model_name=model_settings.embedding_models.get("name"),
                                        model_kwargs={'device': 'cpu'},
                                        encode_kwargs={'normalize_embeddings': False})
  

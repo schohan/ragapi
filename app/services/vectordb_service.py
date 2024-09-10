@@ -15,5 +15,11 @@ class VectorDbService:
         ids = cls.vectorstore.add_texts(chunks, embeddings=embeddings)
         print("Inserted into VectorStore ..." + str(ids))
     
-    
-    
+    @classmethod
+    def search(cls, query: str, k: int = 5) -> list[Document]:
+        """Searches the vector store for the query"""
+        print("Searching for query %s" % query)
+
+        results = cls.vectorstore.similarity_search(query, k=k)
+        print("Search results ..." + str(results))
+        return results 

@@ -33,9 +33,11 @@ class ModelSettings(BaseSettings):
         "chunk_overlap": 3
     }
     embedding_models: dict = {
-        "bge": "BAAI/bge-small-en"
+        #"name": "BAAI/bge-small-en"
+        "name": "sentence-transformers/all-mpnet-base-v2"
     }       
-    llama3: dict = {
+    model: dict = {
+        "name": "llama3.1:8b",
         "url": "http://localhost:11434",                 
         "context_size": 8000,
     }

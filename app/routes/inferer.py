@@ -8,6 +8,7 @@ import json
 from fastapi.encoders import jsonable_encoder
 from typing import Annotated
 from markdown import markdown
+from app.services.vectordb_service import VectorDbService
 
 router = APIRouter(
     prefix="/inferer",
@@ -18,7 +19,7 @@ router = APIRouter(
 
 @router.get("/")
 async def infer(q: Annotated[str | None, Query(max_length=100)] = None):
-    if q:
+    if q:        
         return LlmService.test(q)
     else:
         return "No query specified" 
@@ -39,9 +40,38 @@ async def infer_with_prompt(prompt:str|None = "default", q: Annotated[str | None
         return "No query specified" 
 
 
+@router.get("/search-similar")
+def search_similar(q: str):
+    print("Searching for similar documents to: %s" % q)
+
+    docs = VectorDbService.search(q, 50)
+    
+    print("Found documents: %s" % str(docs))
+    
+    context_prompt = create_context_prompt(docs, q)
+    
+    print("context_prompt: %s" % context_prompt)
+
+    resp = LlmService.call(context_prompt)
+    return Response(content=resp, media_type="text/plain")
+
+
+
 @router.get("/test")
 async def infertest(q: Annotated[str | None, Query(max_length=100)] = None):
     if q:
         return LlmService.test(q)
     else:
         return "No query specified" 
+
+
+
+def create_context_prompt(docs, query):
+    context = "Using the following context: \n ---- \n "
+    for doc in docs:
+        context += doc.page_content + " "
+    context += " --- "
+    context += " answer the following question: \n ---- \n"
+    context += query
+
+    return context
