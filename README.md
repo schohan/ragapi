@@ -1,4 +1,7 @@
 # About
+NOTE: This PoC is Work in Progress and not complete. Only simple Q&A flow works.
+
+
 This is a PoC for a RAG application. It does use a few langchain libraries but it is not using the full langchain framework. A langchain based version will be created separately. This is not a reference implementation for production use.
 
 ## Setup Guide
