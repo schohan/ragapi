@@ -1,7 +1,7 @@
 from pathlib import Path
 from fastapi import APIRouter, Query, Response
-from app.helpers.dataloaders.pdf_loader import PdfLoader
-from app.services.ingestor_service import IngestorService
+#from app.helpers.dataloaders.pdf_loader import PdfLoader
+#from app.services.ingestor_service import IngestorService
 from app.services.llm_service import LlmService
 from app.services.bedrock_service import BedrockService
 import json

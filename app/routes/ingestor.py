@@ -6,7 +6,7 @@ from app.config import settings
 from app.helpers.dataloaders.pdf_loader import PdfLoader
 from app.services.ingestor_service import IngestorService
 from app.services.tokenizer_service import TokenizerService
-from app.services.llm_service import LlmService
+#from app.services.llm_service import LlmService
 from app.services.embedding_service import EmbeddingService
 
 import json
