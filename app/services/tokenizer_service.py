@@ -6,12 +6,11 @@ from app.db.MongoDBRepository import MongoDBRepository
 from langchain_core.documents import Document
 from app.services.embedding_service import EmbeddingService
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from app.services.vectordb_service import VectorDbService
 
 from typing import Any, Dict, List
 
 import logging
-
-from app.services.vectordb_service import VectorDbService
 logger = logging.getLogger(__name__)
 
 class TokenizerService:    

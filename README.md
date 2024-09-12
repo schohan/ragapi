@@ -9,16 +9,46 @@ This is a PoC for a RAG application. It does use a few langchain libraries but i
 
 ```mermaid
 flowchart LR
-    config
-
     admin(((admin)))
+    user(((user)))
+    
+    subgraph datastores
+        mongodb[(MongoDB)]
+        chroma[(Chroma)]
+    end
+
+    subgraph LLM
+        llm[[Ollama/OpenAi/Bedrock/Others]]
+    end
+
+    subgraph Routes
+        sources
+        ingestor
+        inferer
+    end
+   
+    subgraph Services
+        ingestor_service
+        tokenizer_service
+        embedding_service
+        vectordb_service
+        llm_service
+    end
+  
+    subgraph Helpers
+        dataloaders
+    end    
+
+    subgraph Jobs
+        sync
+    end
+    
+
     admin--(manage document sources)-->sources
     admin--(trigger ingestion of docs)-->ingestor
-    
-    user(((user)))
     user--(ask questions)-->inferer
+   
     sources-->ingestor_service
-
     ingestor-->ingestor_service
     ingestor-->tokenizer_service
     ingestor-->embedding_service
@@ -27,34 +57,19 @@ flowchart LR
     inferer-->vectordb_service
     
     tokenizer_service-->embedding_service
+    tokenizer_service-->vectordb_service
+    
     vectordb_service-->embedding_service
     ingestor_service-->dataloaders
+    llm_service-->llm
+    sync-->ingestor_service
+    sync-->tokenizer_service
     
-    subgraph Routes
-        sources
-        ingestor
-        inferer
-    end
-    Routes-->config
+    
+    ingestor_service-->mongodb
+    tokenizer_service-->chroma
 
-    subgraph Services
-        ingestor_service
-        tokenizer_service
-        embedding_service
-        vectordb_service
-        llm_service
-    end
-    Services-->config
 
-    subgraph Helpers
-        dataloaders
-    end    
-    Helpers-->config
-
-    subgraph Jobs
-        sync
-    end
-    Jobs-->config
 ```
 
 ## Setup Guide
