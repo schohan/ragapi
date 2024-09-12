@@ -7,8 +7,6 @@ class LlmService:
             model=model_settings.model.get("name"),
         )
 
-
-
     @classmethod
     def test(cls, question):        
         print("question : " + question)
