@@ -30,16 +30,6 @@ async def list_bedrock_models(q: Annotated[str | None, Query(max_length=100)] = 
     return BedrockService.list_models()
 
 
-@router.get("/withprompt")
-async def infer_with_prompt(prompt:str|None = "default", q: Annotated[str | None, Query(max_length=100)] = None):    
-    if q:
-        resp = LlmService.call(prompt, q)
-        html_content = markdown(resp)
-        return Response(content=html_content, media_type="text/html")
-    else:
-        return "No query specified" 
-
-
 @router.get("/search-similar")
 def search_similar(q: str):
     print("Searching for similar documents to: %s" % q)

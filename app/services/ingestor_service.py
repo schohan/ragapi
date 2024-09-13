@@ -38,7 +38,7 @@ class IngestorService:
 
     def ingest_file(self, file: str, out_dir: str) -> List[Document] | None:
         print("ingest_file : %s" % (file))
-        pages: List[Document] = []
+        pages: List[Document] | None = []
         if file.endswith('.pdf'):
             print("Extracting pdf file: %s" % file)
             pdfLoader = PdfLoader()
