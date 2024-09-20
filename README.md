@@ -2,7 +2,9 @@
 NOTE: This PoC is work in progress.
 
 
-This is a PoC for a RAG application. It does use a few langchain libraries but it is not using the full langchain framework. A langchain based version will be created separately. This is not a reference implementation for production use.
+This is a PoC for a RAG application that leverages a few langchain libraries. 
+A langchain based version will be created separately. 
+This is not a reference implementation for production use.
 
 
 ## Key Modules
@@ -91,7 +93,8 @@ pip install --upgrade -r requirements.txt
 ```
 
 ## Requirements 
-- Install Ollama ( as local LLM ) 
+- Install MongoDB (or configure access to a hosted service in config.py) 
+- Install Ollama ( to use as local LLM ) 
 - Pull a small model for testing (less accurate but good for CPU based machines). Configure it in config.py file.
 - Install locally or have access to a MongoDB document store. It is used to pre-process documents and store cleaned versions.
 
@@ -135,6 +138,5 @@ http://localhost:8000/ingestor/ingest
 - Tokenize
 http://localhost:8000/ingestor/tokenize
 
-- Ask questions
-http://localhost:8000/inferer/search-similar?q=<your question goes here?>
-
+- Ask questions. Get response as stream by setting stream=true. Default is false.
+http://localhost:8000/inferer/search-similar?stream=<true|false>&q=<your question goes here?>

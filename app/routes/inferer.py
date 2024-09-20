@@ -1,5 +1,6 @@
 from pathlib import Path
 from fastapi import APIRouter, Query, Response
+from fastapi.responses import StreamingResponse
 #from app.helpers.dataloaders.pdf_loader import PdfLoader
 #from app.services.ingestor_service import IngestorService
 from app.services.llm_service import LlmService
@@ -31,7 +32,7 @@ async def list_bedrock_models(q: Annotated[str | None, Query(max_length=100)] = 
 
 
 @router.get("/search-similar")
-def search_similar(q: str):
+def search_similar(q: str, stream: bool = False):   
     print("Searching for similar documents to: %s" % q)
 
     docs = VectorDbService.search(q, 50)
@@ -42,8 +43,15 @@ def search_similar(q: str):
     
     print("context_prompt: %s" % context_prompt)
 
-    resp = LlmService.call(context_prompt)
+    # Stream the response, if requested
+    if ( stream ):
+        return StreamingResponse(LlmService.stream(context_prompt), media_type="text/plain")
+    
+    # Otherwise, return the response as a string
+    resp =  LlmService.call(context_prompt)
     return Response(content=resp, media_type="text/plain")
+
+
 
 
 

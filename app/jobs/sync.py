@@ -1,6 +1,9 @@
+from turtle import back
 from fastapi import BackgroundTasks
 import logging
+
 logger = logging.getLogger(__name__)
+background_tasks = BackgroundTasks()
 
 def record_event(key: str, message=""):
     with open("event-record.txt", mode="w") as events_file:
